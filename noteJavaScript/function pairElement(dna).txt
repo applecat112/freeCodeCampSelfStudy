@@ -1,0 +1,27 @@
+function pairElement(dna) {
+  const pairs = {
+    A: "T",
+    T: "A",
+    C: "G",
+    G: "C"
+  };
+
+  let res = [];
+
+  for (let i = 0; i < dna.length; i++) {
+    res.push([dna[i], pairs[dna[i]]]);
+    res.push(["A", pairs["A"]])
+    res.push(["A", "T"])
+  }
+
+  return res;
+}
+
+console.log(pairElement("ATCGA"));
+
+Truy cập giá trị
+
+Có hai cách:
+
+console.log(pairs.A);      // "T"
+console.log(pairs["A"]); // "T"

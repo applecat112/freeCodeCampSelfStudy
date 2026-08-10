@@ -1,0 +1,147 @@
+How to Check If an Object Has a Property?
+const person = {
+  name: "Bob",
+  age: 25
+};
+hasOwnProperty() Ex: person.hasOwnProperty("name") => used to check property in object
+Object.hasOwn(object, propertyName) => Same with above
+
+Another way to check for the existence of a property in an object is to use the in operator. Like hasOwnProperty(), the in operator will return true if the property exists on the object. Here's how you can use it:
+
+console.log("name" in person)
+
+The third method involves checking if a property is undefined. This approach can be useful, but it has some limitations. Here's an example:
+const car = {
+  brand: "Toyota",
+  model: "Corolla",
+  year: 2020
+};
+
+console.log(car.brand !== undefined); // true
+console.log(car.color !== undefined); // false
+
+In this code, we check if car.brand and car.color are not undefined. This works because accessing a non-existent property on an object returns undefined. However, this method can give false negatives if a property explicitly has the value undefined.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+How Do You Work with Accessing Properties from Nested Objects and Arrays in Objects?
+
+const person = {
+  name: "Alice",
+  age: 30,
+  contact: {
+    email: "alice@example.com",
+    phone: {
+      home: "123-456-7890",
+      work: "098-765-4321"
+    }
+  }
+};
+
+console.log(person.contact.phone.work); // "098-765-4321"
+
+You can also use bracket notation, which is particularly useful when property names include spaces or special characters, or when you're using variables to access properties:
+const person = {
+  name: "Alice",
+  age: 30,
+  contact: {
+    email: "alice@example.com",
+    phone: {
+      home: "123-456-7890",
+      work: "098-765-4321"
+    }
+  }
+};
+
+console.log(person['contact']['phone']['work']); // "098-765-4321"
+
+Now, let’s take a look at how we can access data where one of the object properties has the value of an array. Here is a modified person object that includes an array of addresses:
+
+const person = {
+  name: "Alice",
+  age: 30,
+  addresses: [
+    { type: "home", street: "123 Main St", city: "Anytown" },
+    { type: "work", street: "456 Market St", city: "Workville" }
+  ]
+};
+
+console.log(person.addresses[1].city); // "Workville"
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+What Is the Difference Between Primitive and Non-Primitive Data Types?
+
+Primitive data types are the simplest form of data in JavaScript. They include number, bigint, string, boolean, null, undefined, and symbol. These types are called "primitive" because they represent single values and are not objects.
+
+Primitive values are immutable, which means once they are created, their value cannot be changed. However, you can reassign a new value to the variable. Here's an example of working with primitive data types:
+
+let num1 = 5;
+let num2 = num1;
+num1 = 10;
+
+console.log(num2); // 5
+
+Non-primitive data types, on the other hand, are more complex. In JavaScript, these are objects, which include regular objects, arrays, and functions. Unlike primitives, non-primitive types can hold multiple values as properties or elements.
+
+When you create a variable with a non-primitive value, what's stored in the variable is actually a reference to the location in memory where the object is stored, not the object itself. This leads to some important differences in behavior. Here's an example with non-primitive types:
+
+const originalPerson = { name: "John", age: 30 };
+const copiedPerson = originalPerson;
+
+originalPerson.age = 31;
+
+console.log(copiedPerson.age); // 31
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+What Is the Difference Between Functions and Object Methods?
+
+In JavaScript, functions and object methods are both ways to encapsulate reusable code, but they have some key differences in how they are defined, used, and the context in which they operate. Understanding these differences is crucial for writing effective and organized JavaScript code.
+
+As you learned in earlier modules, functions are reusable blocks of code that perform a specific task:
+
+function greet(name) {
+    return "Hello, " + name + "!";
+}
+console.log(greet("Alice")); // "Hello, Alice!"
+
+Object methods, on the other hand, are functions that are associated with an object. They are defined as properties of an object and can access and manipulate the object's data. Here's an example of an object with a method:
+
+const person = {
+    name: "Bob",
+    age: 30,
+    sayHello: function() {
+        return "Hello, my name is " + this.name;
+    }
+};
+
+console.log(person.sayHello()); // "Hello, my name is Bob"
+
+A difference between functions and methods is how they are invoked. Functions are called by their name, while methods are called using dot notation on the object they belong to. For example, we call the greet function as greet("Alice"), but we call the sayHello method as person.sayHello().
+
+Another important difference is the context in which they operate. Regular functions have their own scope, but they don't have a built-in reference to any particular object. Methods, however, are bound to their object and can access its properties and other methods using the this keyword.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+What Is the Object() Constructor, and When Should You Use It?
+
+In JavaScript, a constructor is a special type of function used to create and initialize objects. It is invoked with the new keyword and can initialize properties and methods on the newly created object.
+
+In this lesson, we will take a look at how to work with the Object() constructor. The Object() constructor creates a new empty object. Here is an example:
+
+new Object()
+When you call new Object(), it returns a new object that can be used to store values.
+
+The Object() constructor can be used with or without the new keyword. When called as a function without new, it behaves differently depending on the type of value passed to it. Here's an example of using the Object() constructor without the new keyword:
+
+const num = 42;
+const numObj = Object(num); // Creates an object wrapper for the number
+
+console.log(numObj);
+console.log(typeof numObj); // "object"
+
+const newObj = new Object(undefined);
+console.log(newObj); // {}
+
+Most of the time you will not be using the Object() constructor to create new objects because you will be using object literal syntax instead (e.g., const objectLiteral = { name: "Beau" })

@@ -1,0 +1,89 @@
+function uniteUnique(...arrays) {
+  let res = [];
+  for (let i = 0; i < arrays.length; i++) {
+    let array = arrays[i];
+    for (let j = 0; j < array.length; j++) {
+      res.push(array[j]);
+    }
+  }
+  let uniqueArray = [...new Set(res)];
+  return uniqueArray;
+}
+
+Loại bỏ phần tử trùng
+let uniqueArray = [...new Set(res)];
+
+new Set(res)
+
+Set chỉ lưu giá trị duy nhất.
+
+new Set([1,2,2,3,3,4])
+// Set {1,2,3,4}
+
+...
+
+Trải Set thành mảng:
+
+[...new Set(res)]
+// [1,2,3,4]
+
+Cách viết ngắn gọn hơn
+
+JavaScript hiện đại có thể viết:
+
+function uniteUnique(...arrays) {
+  return [...new Set(arrays.flat())];
+}
+
+arrays.flat()
+
+Biến:
+
+[[1,2],[2,3],[3,4]]
+
+thành:
+
+[1,2,2,3,3,4]
+
+flat() là một phương thức của mảng (Array method) trong JavaScript dùng để làm phẳng (flatten) mảng lồng nhau.
+
+Cú pháp
+array.flat(depth)
+
+depth là số cấp độ muốn làm phẳng.
+
+Mặc định depth = 1.
+
+Làm phẳng nhiều cấp
+const arr = [1, [2, [3, [4]]]];
+
+console.log(arr.flat(1)); // [1, 2, [3, [4]]]
+console.log(arr.flat(2)); // [1, 2, 3, [4]]
+console.log(arr.flat(3)); // [1, 2, 3, 4]
+
+Làm phẳng toàn bộ
+
+Dùng Infinity:
+
+const arr = [1, [2, [3, [4]]]];
+
+console.log(arr.flat(Infinity));
+
+Một lưu ý quan trọng
+
+flat() không thay đổi mảng gốc.
+
+const arr = [1, [2,3]];
+const newArr = arr.flat();
+
+console.log(arr);    // [1, [2,3]]
+console.log(newArr); // [1, 2, 3]
+
+Nó trả về mảng mới.
+
+Trong bài uniteUnique(...arrays) của bạn:
+
+arrays = [[1,2], [2,3], [3,4]]
+
+flat() để trống không làm phẳng hết tất cả các tầng. Mặc định nó chỉ làm phẳng 1 cấp.
+Các mảng (từng phần tử trong mảng lớn là 1 mảng con) chỉ lồng 1 tầng, nên arrays.flat() là đủ. 

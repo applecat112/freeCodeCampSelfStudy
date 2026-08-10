@@ -1,0 +1,122 @@
+const originalArray = [12, 97, 68, 55];
+const copyArray = originalArray.slice();
+copyArray[1] = copyArray.splice(3, 1, copyArray[1])[0];
+console.log(copyArray); // [12, 55, 68, 97]
+
+slice() không có tham số sẽ tạo một bản sao.
+copyArray = [12, 97, 68, 55]
+
+copyArray[1] = copyArray.splice(3, 1, copyArray[1])[0];
+
+copyArray[1] = 97
+splice(3, 1, copyArray[1])
+=> array.splice(start, deleteCount, item1)
+=> copyArray.splice(3, 1, 97)
+Ý nghĩa:
+
+bắt đầu tại index 3
+xóa 1 phần tử
+chèn 97 vào vị trí đó
+=> [12, 97, 68, 97]
+
+splice(...)
+
+trả về mảng chứa các phần tử đã bị xóa
+copyArray.splice(3,1,97) => [55]
+
+copyArray.splice(...)[0]
+lấy phần tử đầu tiên của mảng trả về => 55
+
+copyArray[1] = 55;
+=> [12, 55, 68, 97]
+
+
+
+FIND A LONGEST WORD FINDER
+function findLongestWordLength(str) {
+  const words = str.split(" ");
+  let res = 0;
+  for(let i = 0; i < words.length; i++) {
+    if(words[i].length > res) {
+      res = words[i].length;
+    }
+  }
+  return res;
+}
+
+
+function findLongestWordLength(str) {
+  return str.split(" ").reduce((max, word) => Math.max(max, word.length), 0);
+}
+
+array.reduce(callback, initialValue)
+Trong đó:
+
+callback: Hàm được gọi cho mỗi phần tử
+
+initialValue: Giá trị khởi tạo (tùy chọn)
+
+array.reduce((accumulator, currentValue, currentIndex, array) => {
+  // trả về giá trị mới cho accumulator
+}, initialValue)
+accumulator: Giá trị tích lũy (kết quả sau mỗi lần lặp)
+
+currentValue: Phần tử hiện tại đang xử lý
+
+currentIndex: Vị trí của phần tử hiện tại
+
+array: Mảng gốc
+
+Với chuỗi: "The quick brown fox"
+
+Bước 1: str.split(" ") → ["The", "quick", "brown", "fox"]
+
+Bước 2: reduce() chạy:
+
+Lần lặp	max (accumulator)	word (currentValue)	word.length	Kết quả mới của max
+Bắt đầu	0 (initialValue)	-	-	-
+1	0	"The"	3	Math.max(0, 3) = 3
+2	3	"quick"	5	Math.max(3, 5) = 5
+3	5	"brown"	5	Math.max(5, 5) = 5
+4	5	"fox"	3	Math.max(5, 3) = 5
+Kết quả cuối cùng: 5
+
+
+function findLongestWordLength(str) {
+  return Math.max(...str.split(" ").map(word => word.length));
+}
+
+1. Copy toàn bộ mảng khi đã split vào hàm max
+2. map từng index trong mảng đã copy thành độ dài của từng index 
+3. tìm max từ từng độ dài của phần tử index đó
+
+
+Giải thích chi tiết hàm mutation()
+Hàm này kiểm tra xem tất cả các ký tự trong chuỗi thứ hai có xuất hiện trong chuỗi thứ nhất hay không (không phân biệt chữ hoa chữ thường).
+function mutation(arr) {
+  const first = arr[0].toLowerCase();
+  const second = arr[1].toLowerCase();
+  for(let i = 0; i < second.length; i++) {
+    if(first.indexOf(second[i]) === -1) {
+      return false;
+    }
+  }
+  return true;
+}
+
+Kiểm tra ký tự có tồn tại trong chuỗi thứ nhất
+if(first.indexOf(second[i]) === -1) {
+  return false;
+}
+second[i]: Lấy ký tự tại vị trí i trong chuỗi thứ hai
+
+first.indexOf(second[i]): Tìm vị trí của ký tự đó trong chuỗi thứ nhất
+
+indexOf() trả về:
+
+Vị trí (>= 0): Nếu tìm thấy ký tự
+
+-1: Nếu KHÔNG tìm thấy ký tự
+
+Nếu không tìm thấy (=== -1), hàm trả về false ngay lập tức
+

@@ -1,0 +1,70 @@
+Sự khác nhau giữa “in ra màn hình” và “trả về giá trị” trong JavaScript.
+
+function f() {
+  return "hello";
+}
+
+console.log(f());
+
+Kết quả:
+
+hello
+
+Hàm f() trả về chuỗi "hello".
+
+console.log(...) chỉ có nhiệm vụ hiển thị giá trị đó ra màn hình.
+
+Bây giờ xem trường hợp của bạn:
+
+function f() {
+  return console.log("hello");
+}
+
+console.log(f());
+
+Kết quả sẽ là:
+
+hello
+undefined
+
+Tại sao?
+
+Bước chạy chương trình
+
+console.log("hello") được thực hiện trước → in ra hello.
+
+Hàm console.log() không trả về chuỗi; nó trả về undefined.
+
+return console.log("hello") tức là return undefined.
+
+console.log(f()) tiếp tục in giá trị trả về của f() → undefined.
+
+Minh họa trực tiếp với hàm của bạn
+Sai
+function studentMsg() {
+  return console.log("You passed");
+}
+
+let result = studentMsg();
+console.log(result);
+
+Kết quả:
+
+You passed
+undefined
+
+Biến result nhận giá trị undefined, không phải chuỗi.
+
+Đúng
+function studentMsg() {
+  return "You passed";
+}
+
+let result = studentMsg();
+console.log(result);
+
+Kết quả:
+
+You passed
+
+Ở đây result chứa đúng chuỗi "You passed".
