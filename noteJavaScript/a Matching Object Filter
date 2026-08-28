@@ -1,0 +1,86 @@
+two arguments:
+
+collection → an array of objects
+source → an object containing the properties you want to match
+Suppose:
+
+const collection = [
+    { first: "Romeo", last: "Montague" },
+    { first: "Tybalt", last: "Capulet" },
+    { first: "Benvolio", last: "Montague" }
+];
+
+const source = {
+    last: "Montague"
+};
+
+First:
+
+Object.keys(source)
+
+gives:
+
+["last"]
+
+Then:
+
+collection.filter(...)
+
+checks every object.
+
+For:
+
+{ first: "Romeo", last: "Montague" }
+
+we check:
+
+obj["last"] === source["last"]
+
+which is:
+
+"Montague" === "Montague"
+
+→ true → keep it
+
+For:
+
+{ first: "Tybalt", last: "Capulet" }
+
+we get:
+
+"Capulet" === "Montague"
+
+→ false → remove it
+
+Why every()?
+The requirement says:
+match all key-value pairs
+So every() is perfect.
+For example:
+
+const source = {
+    first: "Tybalt",
+    last: "Capulet"
+};
+
+Then:
+
+Object.keys(source)
+
+gives:
+
+["first", "last"]
+
+every() asks:
+
+Is first correct? → YES
+Is last correct?  → YES
+                   ↓
+                 KEEP
+
+If even one is wrong:
+
+Is first correct? → YES
+Is last correct?  → NO
+                   ↓
+                REMOVE
