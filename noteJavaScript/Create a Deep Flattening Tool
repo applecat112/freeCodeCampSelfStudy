@@ -1,0 +1,28 @@
+Your solution should not use the Array.prototype.flat() or Array.prototype.flatMap() methods.
+function steamrollArray(arr) {
+  const result = [];
+
+  function flatten(array) {
+    for (const item of array) {
+      if (Array.isArray(item)) {
+        flatten(item);
+      } else {
+        result.push(item);
+      }
+    }
+  }
+
+  flatten(arr);
+  return result;
+}
+
+Using recursion through:
+  function flatten(array) {
+    for (const item of array) { // Check every item of array
+      if (Array.isArray(item)) { // Validate is it an array
+        flatten(item); // Loop again -> Check item in item's array and validate it 
+      } else {
+        result.push(item); // If after validate is it an array and not then push item (which is not an array) to 
+      }
+    }
+  }
